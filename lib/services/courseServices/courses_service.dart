@@ -1,4 +1,5 @@
 import 'package:fishstick_gym/models/course.dart';
+import 'package:fishstick_gym/models/token.dart';
 import 'package:fishstick_gym/services/authServices/isar_service.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
@@ -62,6 +63,33 @@ class CourseService {
       }
     } catch (e) {
       throw Exception('Failed to load user courses: $e');
+    }
+  }
+
+  Future<List<User>> getParticipantsForCourse(int courseId) async {
+    final url = Uri.parse('$baseUrl/cursos/$courseId?populate=users');
+    final token = await _isarService.getToken(); 
+
+    final response = await http.get(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      List<User> users = [];
+      final data = json.decode(response.body)['data'];
+
+      if (data['attributes']['users'] != null) {
+        List<dynamic> usersJson = data['attributes']['users']['data'];
+        users = usersJson.map((userJson) => User.fromJson(userJson)).toList();
+      }
+
+      return users;
+    } else {
+      throw Exception('Failed to load participants for course');
     }
   }
 
