@@ -33,6 +33,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_dotenv: ^5.1.0
+  flutter_launcher_icons: ^0.13.1
   form_validator: ^2.1.1
   http: ^1.2.1
   isar: ^3.1.0+1
@@ -46,6 +47,11 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   isar_generator: ^3.1.0+1
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/fishstick.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
