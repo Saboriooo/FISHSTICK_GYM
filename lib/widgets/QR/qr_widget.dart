@@ -33,6 +33,7 @@ class QRCodeDialog extends StatelessWidget {
                   data: 'Username: $username, Course: $courseName',
                   version: QrVersions.auto,
                   size: 200.0,
+                  embeddedImage: const AssetImage('assets/fishstick.png'),
                 ),
               ),
               const SizedBox(height: 16), 
