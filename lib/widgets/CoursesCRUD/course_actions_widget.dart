@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:fishstick_gym/pages/UserPages/course_users_page.dart';
 import 'package:fishstick_gym/widgets/CoursesCRUD/course_delete_widget.dart';
 import 'package:fishstick_gym/widgets/CoursesCRUD/course_edit_widget.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,15 @@ void showCourseActions(BuildContext context, Course course) {
             title: const Text('Ver Participantes'),
             onTap: () {
               Navigator.pop(context);
-              // Handle "Ver Participantes" action
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CourseUsersPage(
+                    courseId: course.id,
+                    courseName: course.nombre,
+                  ),
+                ),
+              );
             },
           ),
           ListTile(

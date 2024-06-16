@@ -3,6 +3,7 @@ import 'package:fishstick_gym/pages/AuthPages/login_page.dart';
 import 'package:fishstick_gym/pages/AuthPages/signup_page.dart';
 import 'package:fishstick_gym/pages/HomePages/admin_page.dart';
 import 'package:fishstick_gym/pages/HomePages/client_page.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
