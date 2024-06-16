@@ -20,7 +20,7 @@ class DeleteCoursePopup extends StatelessWidget {
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Error al eliminar el curso')),
+        const SnackBar(content: Text('No se puede eliminar el curso porque tiene estudiantes matriculados')),
       );
     }
   }

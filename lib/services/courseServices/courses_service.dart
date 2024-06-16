@@ -149,6 +149,12 @@ class CourseService {
 }
 
   Future<bool> deleteCourse(int id) async {
+
+    final participants = await getParticipantsForCourse(id);
+    if (participants.isNotEmpty) {
+      return false;
+    }
+
     final url = Uri.parse('$baseUrl/cursos/$id');
     final token = await _isarService.getToken();
 
