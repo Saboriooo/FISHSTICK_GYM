@@ -1,9 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:fishstick_gym/providers/theme_provider.dart';
 import 'package:fishstick_gym/services/authServices/signup_service.dart';
+import 'package:fishstick_gym/widgets/AuthWidgets/input_maker_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:form_validator/form_validator.dart';
 
+//Página de registro de la aplicación, Route: '/signup'
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -31,7 +34,6 @@ class _SignupPageState extends State<SignupPage> {
 
   @override
   Widget build(BuildContext context) {
-    const Color nonBrightOrange = Color(0xFFE67E22);
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -39,7 +41,7 @@ class _SignupPageState extends State<SignupPage> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
-        leading: IconButton(
+        leading: IconButton(//Botón para regresar a la página anterior
           onPressed: () {
             Navigator.pop(context);
           },
@@ -60,7 +62,7 @@ class _SignupPageState extends State<SignupPage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 const Column(
-                  children: <Widget>[
+                  children: <Widget>[//Titulo de la página
                     Text(
                       "Regístrate",
                       style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
@@ -69,7 +71,7 @@ class _SignupPageState extends State<SignupPage> {
                   ],
                 ),
                 const SizedBox(height: 20),
-                makeInput(
+                makeInput(//Campo para ingresar el nombre completo
                   controller: _usernameController,
                   label: "Nombre Completo",
                   validator: (value) {
@@ -80,13 +82,13 @@ class _SignupPageState extends State<SignupPage> {
                   },
                 ),
                 const SizedBox(height: 10),
-                makeInput(
+                makeInput(//Campo para ingresar el correo electrónico
                   controller: _emailController,
                   label: "Email",
                   validator: ValidationBuilder().email('Por favor, ingresa un correo electrónico válido').build(),
                 ),
                 const SizedBox(height: 10),
-                makePasswordInput(
+                makePasswordInput(//Campo para ingresar la contraseña
                   label: "Contraseña",
                   controller: _passwordController,
                   obscureText: _obscurePassword,
@@ -104,7 +106,7 @@ class _SignupPageState extends State<SignupPage> {
                   },
                 ),
                 const SizedBox(height: 10),
-                makePasswordInput(
+                makePasswordInput(//Campo para confirmar la contraseña
                   label: "Confirmar Contraseña",
                   controller: _confirmPasswordController,
                   obscureText: _obscureConfirmPassword,
@@ -127,7 +129,7 @@ class _SignupPageState extends State<SignupPage> {
                     padding: const EdgeInsets.only(top: 0, left: 0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50),
-                      color: nonBrightOrange,
+                      color: AppTheme.nonBrightOrange,
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withOpacity(0.2),
@@ -137,7 +139,7 @@ class _SignupPageState extends State<SignupPage> {
                         ),
                       ],
                     ),
-                    child: MaterialButton(
+                    child: MaterialButton(//Botón para registrar al usuario
                       minWidth: double.infinity,
                       height: 50,
                       onPressed: _isLoading
@@ -159,17 +161,16 @@ class _SignupPageState extends State<SignupPage> {
                                   _isLoading = false;
                                 });
 
-                                if (success) {
+                                if (success) {//Si el registro es exitoso, se redirige a la página de login
                                   Navigator.pushNamed(context, '/login');
-                                } else {
-
+                                } else {//Si el registro falla, se muestra un mensaje de error
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(content: Text('Registro fallido')),
                                   );
                                 }
                               }
                             },
-                      color: nonBrightOrange,
+                      color: AppTheme.nonBrightOrange,
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50),
@@ -186,10 +187,10 @@ class _SignupPageState extends State<SignupPage> {
                 const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
+                  children: <Widget>[//Texto para redirigir a la página de login
                     const Text("¿Ya tienes una cuenta? "),
                     GestureDetector(
-                      onTap: () {
+                      onTap: () {//Redirección a la página de login
                         Navigator.pushNamed(context, '/login');
                       },
                       child: const Text(
@@ -210,75 +211,5 @@ class _SignupPageState extends State<SignupPage> {
     );
   }
 
-  Widget makeInput({required TextEditingController controller, required String label, bool obscureText = false, required String? Function(String?) validator}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.w400,
-            color: Colors.black87,
-          ),
-        ),
-        const SizedBox(height: 5),
-        TextFormField(
-          controller: controller,
-          obscureText: obscureText,
-          validator: validator,
-          decoration: InputDecoration(
-            contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey[400]!),
-            ),
-            border: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey[400]!),
-            ),
-            errorMaxLines: 3,
-          ),
-        ),
-        const SizedBox(height: 20),
-      ],
-    );
-  }
-
-  Widget makePasswordInput({required String label, required TextEditingController controller, required bool obscureText, required String? Function(String?) validator, required VoidCallback toggleObscureText}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.w400,
-            color: Colors.black87,
-          ),
-        ),
-        const SizedBox(height: 5),
-        TextFormField(
-          controller: controller,
-          obscureText: obscureText,
-          validator: validator,
-          decoration: InputDecoration(
-            contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey[400]!),
-            ),
-            border: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey[400]!),
-            ),
-            errorMaxLines: 3,
-            suffixIcon: IconButton(
-              icon: Icon(
-                obscureText ? Icons.visibility : Icons.visibility_off,
-              ),
-              onPressed: toggleObscureText,
-            ),
-          ),
-        ),
-        const SizedBox(height: 20),
-      ],
-    );
-  }
+  
 }

@@ -1,8 +1,11 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:fishstick_gym/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:fishstick_gym/models/course.dart';
 import 'package:fishstick_gym/services/courseServices/courses_service.dart';
+
+//Widget para eliminar un curso
 
 class DeleteCoursePopup extends StatelessWidget {
   final Course course;
@@ -10,17 +13,17 @@ class DeleteCoursePopup extends StatelessWidget {
 
   DeleteCoursePopup({super.key, required this.course});
 
-  void _deleteCourse(BuildContext context) async {
-    bool success = await courseService.deleteCourse(course.id);
+  void _deleteCourse(BuildContext context) async {//Función para eliminar un curso
+    bool success = await courseService.deleteCourse(course.id);//Llama a la función de CourseService para eliminar un curso
 
-    if (success) {
-      Navigator.pushReplacementNamed(context, '/admin');
+    if (success) {//Si se elimina el curso
+      Navigator.pushReplacementNamed(context, '/admin');//Regresa a la página de administrador
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Curso eliminado exitosamente')),
       );
-    } else {
+    } else {//Si no se elimina el curso
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('No se puede eliminar el curso porque tiene estudiantes matriculados')),
+        const SnackBar(content: Text('No se puede eliminar el curso porque tiene estudiantes matriculados')),//Muestra un mensaje de error
       );
     }
   }
@@ -34,7 +37,7 @@ class DeleteCoursePopup extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text(
+            const Text(//Texto de confirmación de eliminación
               'Confirmar Eliminación',
               style: TextStyle(
                 fontSize: 20,
@@ -44,7 +47,7 @@ class DeleteCoursePopup extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16),
-            const Text(
+            const Text(//Pregunta de confirmación de eliminación
               '¿Estás seguro que deseas eliminar este curso?',
               style: TextStyle(fontSize: 16, color: Colors.black),
               textAlign: TextAlign.center,
@@ -54,23 +57,23 @@ class DeleteCoursePopup extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () {//Botón para confirmar la eliminación del curso
                     _deleteCourse(context);
                   },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
-                    backgroundColor: const Color(0xFFE67E22),
+                    backgroundColor: AppTheme.nonBrightOrange,
                   ),
                   child: const Text('Eliminar'),
                 ),
                 const SizedBox(width: 16),
-                TextButton(
+                TextButton(//Botón para cancelar la eliminación del curso
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
                   child: const Text(
                     'Cancelar',
-                    style: TextStyle(color: Color(0xFFE67E22)),
+                    style: TextStyle(color: AppTheme.nonBrightOrange),
                   ),
                 ),
               ],

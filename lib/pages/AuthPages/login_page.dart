@@ -1,9 +1,13 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:fishstick_gym/providers/theme_provider.dart';
 import 'package:fishstick_gym/services/authServices/isar_service.dart';
 import 'package:fishstick_gym/services/authServices/login_service.dart';
+import 'package:fishstick_gym/widgets/AuthWidgets/input_maker_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:form_validator/form_validator.dart';
+
+//Pagina de Login de la aplicación, Route: '/login'
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -23,8 +27,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    const Color nonBrightOrange = Color(0xFFE67E22);
-    const Color darkGrey = Color(0xFFB0B0B0);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -32,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
-        leading: IconButton(
+        leading: IconButton(//Botón para regresar a la página anterior
           onPressed: () {
             Navigator.pop(context);
           },
@@ -50,13 +52,13 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Container(
+              Container(//Imagen de la pagina de login
                 height: 150,
                 width: 150,
                 decoration: BoxDecoration(
-                  color: darkGrey,
+                  color: AppTheme.darkGrey,
                   borderRadius: BorderRadius.circular(75),
-                  border: Border.all(color: nonBrightOrange, width: 4),
+                  border: Border.all(color: AppTheme.nonBrightOrange, width: 4),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.2),
@@ -74,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const SizedBox(height: 20),
-              const Text(
+              const Text(//Titulo de la página de login
                 "Login",
                 style: TextStyle(
                   fontSize: 30,
@@ -86,20 +88,20 @@ class _LoginPageState extends State<LoginPage> {
                 key: _formKey,
                 child: Column(
                   children: <Widget>[
-                    _makeInput(
+                    makeInput(//Campo de texto para el correo electrónico
                       label: "Email",
                       controller: _emailController,
-                      validator: ValidationBuilder()
+                      validator: ValidationBuilder()//Validación del correo electrónico
                           .email('Por favor, ingrese un correo electrónico válido')
                           .maxLength(50, 'El correo electrónico no puede exceder los 50 caracteres')
                           .build(),
                     ),
-                    _makePasswordInput(
+                    makePasswordInput(//Campo de texto para la contraseña
                       label: "Contraseña",
                       controller: _passwordController,
                       obscureText: _obscureText,
                       toggleObscureText: _toggleObscureText,
-                      validator: ValidationBuilder()
+                      validator: ValidationBuilder()//Validación de la contraseña
                           .minLength(8, 'La contraseña debe tener al menos 8 caracteres')
                           .maxLength(16, 'La contraseña no puede exceder los 16 caracteres')
                           .regExp(
@@ -115,7 +117,7 @@ class _LoginPageState extends State<LoginPage> {
                 width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50),
-                  color: nonBrightOrange,
+                  color: AppTheme.nonBrightOrange,
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.2),
@@ -125,7 +127,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ],
                 ),
-                child: MaterialButton(
+                child: MaterialButton(//Botón para iniciar sesión
                   padding: const EdgeInsets.symmetric(vertical: 15),
                   onPressed: _isLoading
                       ? null
@@ -137,7 +139,7 @@ class _LoginPageState extends State<LoginPage> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50),
                   ),
-                  child: _isLoading
+                  child: _isLoading //Texto del botón de iniciar sesión / Depende de si esta cargando o no 
                       ? const CircularProgressIndicator(
                           valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
                         )
@@ -152,12 +154,12 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const SizedBox(height: 20),
-              Row(
+              Row(//Texto para ir a la página de registro
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   const Text("¿No tienes una cuenta? "),
                   GestureDetector(
-                    onTap: () {
+                    onTap: () {//Botón para ir a la página de registro
                       Navigator.pushNamed(context, '/signup');
                     },
                     child: const Text(
@@ -177,85 +179,14 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _makeInput({required String label, required TextEditingController controller, required String? Function(String?) validator}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.w400,
-            color: Colors.black87,
-          ),
-        ),
-        const SizedBox(height: 5),
-        TextFormField(
-          controller: controller,
-          validator: validator,
-          decoration: InputDecoration(
-            contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey[400]!),
-            ),
-            border: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey[400]!),
-            ),
-            errorMaxLines: 3,
-          ),
-        ),
-        const SizedBox(height: 30),
-      ],
-    );
-  }
-
-  Widget _makePasswordInput({required String label, required TextEditingController controller, required bool obscureText, required VoidCallback toggleObscureText, required String? Function(String?) validator}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.w400,
-            color: Colors.black87,
-          ),
-        ),
-        const SizedBox(height: 5),
-        TextFormField(
-          controller: controller,
-          obscureText: obscureText,
-          validator: validator,
-          decoration: InputDecoration(
-            contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey[400]!),
-            ),
-            border: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey[400]!),
-            ),
-            errorMaxLines: 3,
-            suffixIcon: IconButton(
-              icon: Icon(
-                obscureText ? Icons.visibility : Icons.visibility_off,
-              ),
-              onPressed: toggleObscureText,
-            ),
-          ),
-        ),
-        const SizedBox(height: 30),
-      ],
-    );
-  }
-
-  void _toggleObscureText() {
+  void _toggleObscureText() {//Método para mostrar u ocultar la contraseña
     setState(() {
       _obscureText = !_obscureText;
     });
   }
 
-  void _login() async {
-    setState(() {
+  void _login() async {//Método para iniciar sesión
+    setState(() {//Cambio de estado de la variable isLoading para mostrar Indicador de Carga
       _isLoading = true;
     });
 
@@ -266,26 +197,28 @@ class _LoginPageState extends State<LoginPage> {
 
     bool loginSuccess = await loginService.login(email, password);
 
-    setState(() {
+    setState(() {//Cambio de estado de la variable isLoading para ocultar Indicador de Carga
       _isLoading = false;
     });
 
-    if (loginSuccess) {
+    if (loginSuccess) {//Si el inicio de sesión es exitoso
       final role = await IsarService().getRole();
 
-      if (role == 'Admin') {
-        Navigator.pushReplacementNamed(context, '/admin');
-      } else {
-        Navigator.pushReplacementNamed(context, '/client');
+      if (role == 'Admin') {//Si el usuario es un administrador
+        Navigator.pushReplacementNamed(context, '/admin');//Redirige a la página de administrador
+      } else {//Si el usuario es un cliente
+        Navigator.pushReplacementNamed(context, '/client');//Redirige a la página de cliente
       }
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
+    } else {//Si el inicio de sesión falla
+      ScaffoldMessenger.of(context).showSnackBar(//Muestra mensaje de error
         const SnackBar(
           content: Text('Login failed'),
         ),
       );
     }
 
+
+    //Limpia los de texto
     _emailController.clear();
     _passwordController.clear();
   }

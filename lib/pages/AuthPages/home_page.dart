@@ -1,4 +1,7 @@
+import 'package:fishstick_gym/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
+
+//Home Page de la aplicación, Pagina a mostrar al iniciar la aplicación, Route: '/'
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -6,12 +9,8 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    const Color lightGrey = Color(0xFFF7F7F7);
-    const Color darkGrey = Color(0xFFB0B0B0);
-    const Color nonBrightOrange = Color(0xFFE67E22);
-
     return Scaffold(
-      backgroundColor: lightGrey,
+      backgroundColor: AppTheme.lightGrey,
       body: SafeArea(
         child: Container(
           width: double.infinity,
@@ -31,16 +30,16 @@ class HomePage extends StatelessWidget {
                         width: double.infinity,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: nonBrightOrange,
+                          color: AppTheme.nonBrightOrange,
                         ),
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                         decoration: BoxDecoration(
-                          color: lightGrey,
+                          color: AppTheme.lightGrey,
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
-                            color: nonBrightOrange,
+                            color: AppTheme.nonBrightOrange,
                             width: 5,
                           ),
                           boxShadow: [
@@ -52,7 +51,7 @@ class HomePage extends StatelessWidget {
                             ),
                           ],
                         ),
-                        child: const Text(
+                        child: const Text(//Titulo de la aplicación
                           "FISHSTICK GYM",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
@@ -66,11 +65,11 @@ class HomePage extends StatelessWidget {
                   const SizedBox(height: 20,),
                 ],
               ),
-              Container(
+              Container(//Imagen de la aplicación
                 height: MediaQuery.of(context).size.height / 3,
                 width: MediaQuery.of(context).size.height / 3,
                 decoration: BoxDecoration(
-                  color: darkGrey,
+                  color: AppTheme.darkGrey,
                   shape: BoxShape.circle,
                   border: Border.all(
                     color: Colors.black,
@@ -97,7 +96,7 @@ class HomePage extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50),
                       border: Border.all(
-                        color: nonBrightOrange,
+                        color: AppTheme.nonBrightOrange,
                       ),
                       boxShadow: [
                         BoxShadow(
@@ -108,13 +107,13 @@ class HomePage extends StatelessWidget {
                         ),
                       ],
                     ),
-                    child: MaterialButton(
+                    child: MaterialButton(//Botón para ir a la página de login
                       minWidth: double.infinity,
                       height: 60,
                       onPressed: () {
                         Navigator.pushNamed(context, '/login');
                       },
-                      color: nonBrightOrange,
+                      color: AppTheme.nonBrightOrange,
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50),
@@ -135,7 +134,7 @@ class HomePage extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50),
                       border: Border.all(
-                        color: nonBrightOrange,
+                        color: AppTheme.nonBrightOrange,
                       ),
                       boxShadow: [
                         BoxShadow(
@@ -146,13 +145,13 @@ class HomePage extends StatelessWidget {
                         ),
                       ],
                     ),
-                    child: MaterialButton(
+                    child: MaterialButton(//Botón para ir a la página de registro
                       minWidth: double.infinity,
                       height: 60,
                       onPressed: () {
                         Navigator.pushNamed(context, '/signup');
                       },
-                      color: nonBrightOrange,
+                      color: AppTheme.nonBrightOrange,
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50),

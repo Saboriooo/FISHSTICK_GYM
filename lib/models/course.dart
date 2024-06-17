@@ -1,4 +1,7 @@
-class Course {
+
+//Modelo de Curso
+
+class Course {//Modelo de Course
   final int id;
   final String nombre;
   final String capacidad;
@@ -6,7 +9,7 @@ class Course {
   final DateTime updatedAt;
   final DateTime publishedAt;
 
-  Course({
+  Course({//Constructor de la clase Course
     required this.id,
     required this.nombre,
     required this.capacidad,
@@ -15,8 +18,8 @@ class Course {
     required this.publishedAt,
   });
 
-  factory Course.fromJson(Map<String, dynamic> json) {
-    if (json.containsKey('attributes')) {
+  factory Course.fromJson(Map<String, dynamic> json) {//Método para convertir un JSON en un objeto de tipo Course
+    if (json.containsKey('attributes')) {//Si el JSON contiene la clave 'attributes'
       return Course(
         id: json['id'],
         nombre: json['attributes']['Nombre'],
@@ -25,7 +28,7 @@ class Course {
         updatedAt: DateTime.parse(json['attributes']['updatedAt']),
         publishedAt: DateTime.parse(json['attributes']['publishedAt']),
       );
-    } else {
+    } else {//Si el JSON no contiene la clave 'attributes'
       return Course(
         id: json['id'],
         nombre: json['Nombre'],

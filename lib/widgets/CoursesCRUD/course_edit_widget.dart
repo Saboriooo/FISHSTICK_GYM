@@ -1,8 +1,11 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:fishstick_gym/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:fishstick_gym/models/course.dart';
 import 'package:fishstick_gym/services/courseServices/courses_service.dart';
+
+//Widget para modificar un curso
 
 class ModifyCoursePopup extends StatefulWidget {
   final Course course;
@@ -35,20 +38,20 @@ class _ModifyCoursePopupState extends State<ModifyCoursePopup> {
     super.dispose();
   }
 
-  void _modifyCourse() async {
-    if (_formKey.currentState!.validate()) {
+  void _modifyCourse() async {//Función para modificar un curso
+    if (_formKey.currentState!.validate()) {//Valida los campos del formulario
       final String nombre = _nombreController.text;
       final String capacidad = _capacidadController.text;
-      final bool success = await _courseService.modifyCourse(widget.course.id, nombre, capacidad);
+      final bool success = await _courseService.modifyCourse(widget.course.id, nombre, capacidad);//Llama a la función de CourseService para modificar un curso
 
-      if (success) {
-        Navigator.pushReplacementNamed(context, '/admin');
+      if (success) {//Si se modifica el curso
+        Navigator.pushReplacementNamed(context, '/admin');//Regresa a la página de administrador
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Curso modificado exitosamente')),
         );
-      } else {
+      } else {//Si no se modifica el curso
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Error al modificar el curso')),
+          const SnackBar(content: Text('Error al modificar el curso')),//Muestra un mensaje de error
         );
       }
     }
@@ -65,7 +68,7 @@ class _ModifyCoursePopupState extends State<ModifyCoursePopup> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text(
+              const Text(//Título del popup
                 'Modificar Curso',
                 style: TextStyle(
                   fontSize: 20,
@@ -75,7 +78,7 @@ class _ModifyCoursePopupState extends State<ModifyCoursePopup> {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 16),
-              TextFormField(
+              TextFormField(//Campo para ingresar el nombre del curso
                 controller: _nombreController,
                 decoration: const InputDecoration(labelText: 'Nombre'),
                 validator: (value) {
@@ -85,7 +88,7 @@ class _ModifyCoursePopupState extends State<ModifyCoursePopup> {
                   return null;
                 },
               ),
-              TextFormField(
+              TextFormField(//Campo para ingresar la capacidad del curso
                 controller: _capacidadController,
                 decoration: const InputDecoration(labelText: 'Capacidad'),
                 keyboardType: TextInputType.number,
@@ -100,11 +103,11 @@ class _ModifyCoursePopupState extends State<ModifyCoursePopup> {
                 },
               ),
               const SizedBox(height: 16),
-              ElevatedButton(
+              ElevatedButton(//Botón para modificar el curso
                 onPressed: _modifyCourse,
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.black,
-                  backgroundColor: const Color(0xFFE67E22),
+                  backgroundColor: AppTheme.nonBrightOrange,
                 ),
                 child: const Text('Modificar Curso'),
               ),

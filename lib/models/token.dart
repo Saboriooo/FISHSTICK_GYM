@@ -1,8 +1,10 @@
 import 'package:isar/isar.dart';
 part 'token.g.dart';
 
+//Modelo de Token y Usuario
+
 @collection 
-class Token {
+class Token { //Modelo de Token
     Id? id;
     String? jwt;
     User user;
@@ -16,7 +18,7 @@ class Token {
 }
 
 @embedded
-class User {
+class User {//Modelo de Usuario
     int? id;
     String? username;
     String? email;
@@ -26,7 +28,7 @@ class User {
     DateTime? createdAt;
     DateTime? updatedAt;
 
-    User({
+    User({ //Constructor de la clase User
         this.id,
         this.username,
         this.email,
@@ -37,7 +39,7 @@ class User {
         this.updatedAt,
     });
 
-    factory User.fromJson(Map<String, dynamic> json) {
+    factory User.fromJson(Map<String, dynamic> json) { //Método para convertir un JSON en un objeto de tipo User
         return User(
             id: json['id'],
             username: json['attributes']['username'],

@@ -5,6 +5,8 @@ import 'package:fishstick_gym/widgets/CoursesCRUD/course_edit_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:fishstick_gym/models/course.dart';
 
+//Muestra las acciones disponibles para un curso
+
 void showCourseActions(BuildContext context, Course course) {
   showModalBottomSheet(
     context: context,
@@ -12,10 +14,10 @@ void showCourseActions(BuildContext context, Course course) {
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          ListTile(
+          ListTile(//Botón para ver los participantes del curso
             leading: const Icon(Icons.people),
             title: const Text('Ver Participantes'),
-            onTap: () {
+            onTap: () {//Navega a la página de participantes del curso
               Navigator.pop(context);
               Navigator.push(
                 context,
@@ -28,10 +30,10 @@ void showCourseActions(BuildContext context, Course course) {
               );
             },
           ),
-          ListTile(
+          ListTile(//Botón para modificar el curso
             leading: const Icon(Icons.edit),
             title: const Text('Modificar Curso'),
-            onTap: () {
+            onTap: () {//Muestra el popup para modificar el curso
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
@@ -43,10 +45,10 @@ void showCourseActions(BuildContext context, Course course) {
                 );
             },
           ),
-          ListTile(
+          ListTile(//Botón para eliminar el curso
             leading: const Icon(Icons.delete),
             title: const Text('Eliminar Curso'),
-            onTap: () {
+            onTap: () {//Muestra el popup para eliminar el curso
               showDialog(
                 context: context,
                 builder: (BuildContext context) {

@@ -1,6 +1,9 @@
 import 'package:fishstick_gym/models/token.dart';
+import 'package:fishstick_gym/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:fishstick_gym/services/courseServices/courses_service.dart';
+
+//Página de participantes de un curso'
 
 class CourseUsersPage extends StatelessWidget {
   final int courseId;
@@ -17,7 +20,7 @@ class CourseUsersPage extends StatelessWidget {
           decoration: const BoxDecoration(
             border: Border(
               bottom: BorderSide(
-                color: Color(0xFFE67E22),
+                color: AppTheme.nonBrightOrange,
                 width: 2.0,
               ),
             ),
@@ -25,13 +28,13 @@ class CourseUsersPage extends StatelessWidget {
           child: AppBar(
             elevation: 0,
             backgroundColor: Colors.white,
-            leading: IconButton(
+            leading: IconButton(//Botón para regresar a la página anterior
               onPressed: () {
                 Navigator.pop(context);
               },
               icon: const Icon(Icons.arrow_back_ios, size: 20, color: Colors.black),
             ),
-            title: Text(
+            title: Text(//Título de la página
               courseName,
               style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
             ),
@@ -39,7 +42,7 @@ class CourseUsersPage extends StatelessWidget {
           ),
         ),
       ),
-      body: FutureBuilder<List<User>>(
+      body: FutureBuilder<List<User>>(//Lista de participantes del curso
         future: CourseService().getParticipantsForCourse(courseId),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -50,7 +53,7 @@ class CourseUsersPage extends StatelessWidget {
             return const Center(child: Text('No hay participantes en este curso'));
           } else {
             final participants = snapshot.data!;
-            return ListView.builder(
+            return ListView.builder(//Crea los items de la lista de participantes
               itemCount: participants.length,
               itemBuilder: (context, index) {
                 final user = participants[index];
@@ -64,7 +67,7 @@ class CourseUsersPage extends StatelessWidget {
   }
 }
 
-class UserItem extends StatefulWidget {
+class UserItem extends StatefulWidget {//Item de la lista de participantes
   final User user;
 
   const UserItem({super.key, required this.user});
@@ -78,11 +81,11 @@ class _UserItemState extends State<UserItem> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Container(//Contenedor de la información del participante
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFFE67E22),
+        color: AppTheme.nonBrightOrange,
         borderRadius: BorderRadius.circular(8),
         boxShadow: [
           BoxShadow(
@@ -100,7 +103,7 @@ class _UserItemState extends State<UserItem> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                Text(//Nombre del participante
                   widget.user.username ?? 'Unknown',
                   style: const TextStyle(
                     fontSize: 18,
@@ -109,7 +112,7 @@ class _UserItemState extends State<UserItem> {
                   ),
                 ),
                 const SizedBox(height: 8),
-                Text(
+                Text(//Correo del participante
                   widget.user.email ?? 'No email',
                   style: const TextStyle(fontSize: 14, color: Colors.white),
                 ),
@@ -119,12 +122,12 @@ class _UserItemState extends State<UserItem> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text(
+              Text(//Estado del participante
                 isPresent ? 'Presente' : 'Ausente',
                 style: const TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 8),
-              Switch(
+              Switch(//Switch para cambiar el estado del participante
                 value: isPresent,
                 onChanged: (value) {
                   setState(() {
@@ -132,8 +135,8 @@ class _UserItemState extends State<UserItem> {
                   });
                 },
                 activeColor: Colors.white,
-                activeTrackColor: const Color(0xFFE67E22),
-                inactiveThumbColor: const Color(0xFFE67E22),
+                activeTrackColor: AppTheme.nonBrightOrange,
+                inactiveThumbColor: AppTheme.nonBrightOrange,
                 inactiveTrackColor: Colors.white,
               ),
             ],

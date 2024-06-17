@@ -12,16 +12,16 @@ Future<void> main() async {
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
+      initialRoute: '/',//Ruta inicial
       theme: ThemeData(
-        primarySwatch: Colors.orange, // Adjust the primary color as per your theme
+        primarySwatch: Colors.orange, 
       ),
       routes: {
-        '/': (context) => const HomePage(),
-        '/login': (context) => const LoginPage(),
-        '/signup': (context) => const SignupPage(),
-        '/admin': (context) => const AdminPage(),
-        '/client': (context) => const ClientPage(),
+        '/': (context) => const HomePage(),//Ruta de la página Home
+        '/login': (context) => const LoginPage(),//Ruta de la página de Login
+        '/signup': (context) => const SignupPage(),//Ruta de la página de Registro
+        '/admin': (context) => const AdminPage(),//Ruta de la página de Administrador
+        '/client': (context) => const ClientPage(),//Ruta de la página de Cliente
       },
     ),
   );
